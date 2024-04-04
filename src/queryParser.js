@@ -6,6 +6,16 @@ function parseQuery(query) {
   // First, let's trim the query to remove any leading/trailing whitespaces
   query = query.trim();
 
+  // Updated regex to capture LIMIT clause
+  const limitRegex = /\sLIMIT\s(\d+)/i;
+  const limitMatch = query.match(limitRegex);
+
+  let limit = null;
+  if (limitMatch) {
+    query = query.split(/\sLIMIT\s/i)[0];
+    limit = parseInt(limitMatch[1]);
+  }
+
   // Updated regex to capture ORDER BY clause
   const orderByRegex = /\sORDER BY\s(.+)/i;
   const orderByMatch = query.match(orderByRegex);
@@ -80,6 +90,7 @@ function parseQuery(query) {
     groupByFields,
     hasAggregateWithoutGroupBy,
     orderByFields,
+    limit,
   };
 }
 

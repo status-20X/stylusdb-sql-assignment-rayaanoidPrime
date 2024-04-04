@@ -194,6 +194,7 @@ async function executeSELECTQuery(query) {
       groupByFields,
       hasAggregateWithoutGroupBy,
       orderByFields,
+      limit,
     } = parseQuery(query);
     let data = await readCSV(`${table}.csv`);
 
@@ -277,6 +278,10 @@ async function executeSELECTQuery(query) {
     }
 
     // console.log("AFTER ORDER: ", filteredData);
+
+    if (limit !== null) {
+      filteredData = filteredData.slice(0, limit);
+    }
 
     // Filter the fields based on the query fields
     return filteredData.map((row) => {
