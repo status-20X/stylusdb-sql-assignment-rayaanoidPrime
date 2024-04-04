@@ -23,6 +23,7 @@ test("Parse SQL Query", () => {
     joinCondition: null,
     joinTable: null,
     joinType: null,
+    limit: null,
   });
 });
 
@@ -55,6 +56,7 @@ test("Parse SQL Query with WHERE Clause", () => {
         value: "25",
       },
     ],
+    limit: null,
   });
 });
 
@@ -91,6 +93,7 @@ test("Parse SQL Query with Multiple WHERE Clauses", () => {
         value: "John",
       },
     ],
+    limit: null,
   });
 });
 

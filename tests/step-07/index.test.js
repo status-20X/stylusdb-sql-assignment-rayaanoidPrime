@@ -23,6 +23,7 @@ test("Parse SQL Query", () => {
     joinCondition: null,
     joinTable: null,
     joinType: null,
+    limit: null,
   });
 });
 
@@ -55,6 +56,7 @@ test("Parse SQL Query with WHERE Clause", () => {
         value: "25",
       },
     ],
+    limit: null,
   });
 });
 
@@ -91,6 +93,7 @@ test("Parse SQL Query with Multiple WHERE Clauses", () => {
         value: "John",
       },
     ],
+    limit: null,
   });
 });
 
@@ -134,6 +137,7 @@ test("Execute SQL Query with unsupported operator", async () => {
         value: "> 22",
       },
     ],
+    limit: null,
   });
 });
 
@@ -156,5 +160,6 @@ test("Execute SQL Query with incomplete WHERE Clause", async () => {
         value: "22 AND",
       },
     ],
+    limit: null,
   });
 });

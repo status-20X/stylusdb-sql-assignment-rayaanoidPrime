@@ -23,6 +23,7 @@ test("Parse SQL Query", () => {
     joinType: null,
     table: "student",
     whereClauses: [],
+    limit: null,
   });
 });
 

@@ -319,6 +319,7 @@ test("Parse SQL Query", () => {
     groupByFields: null,
     orderByFields: null,
     hasAggregateWithoutGroupBy: false,
+    limit: null,
   });
 });
 
@@ -341,6 +342,7 @@ test("Parse SQL Query with WHERE Clause", () => {
     groupByFields: null,
     orderByFields: null,
     hasAggregateWithoutGroupBy: false,
+    limit: null,
   });
 });
 
@@ -368,6 +370,7 @@ test("Parse SQL Query with Multiple WHERE Clauses", () => {
     groupByFields: null,
     orderByFields: null,
     hasAggregateWithoutGroupBy: false,
+    limit: null,
   });
 });
 
@@ -385,6 +388,7 @@ test("Parse SQL Query with INNER JOIN", async () => {
     groupByFields: null,
     orderByFields: null,
     hasAggregateWithoutGroupBy: false,
+    limit: null,
   });
 });
 
@@ -402,6 +406,7 @@ test("Parse SQL Query with INNER JOIN and WHERE Clause", async () => {
     groupByFields: null,
     orderByFields: null,
     hasAggregateWithoutGroupBy: false,
+    limit: null,
   });
 });
 
@@ -462,6 +467,7 @@ test("Parse LEFT Join Query Completely", () => {
     groupByFields: null,
     orderByFields: null,
     hasAggregateWithoutGroupBy: false,
+    limit: null,
   });
 });
 
@@ -479,6 +485,7 @@ test("Parse LEFT Join Query Completely", () => {
     groupByFields: null,
     orderByFields: null,
     hasAggregateWithoutGroupBy: false,
+    limit: null,
   });
 });
 
@@ -496,6 +503,7 @@ test("Parse SQL Query with LEFT JOIN with a WHERE clause filtering the main tabl
     groupByFields: null,
     orderByFields: null,
     hasAggregateWithoutGroupBy: false,
+    limit: null,
   });
 });
 
@@ -514,6 +522,7 @@ test("Parse SQL Query with LEFT JOIN with a WHERE clause filtering the join tabl
     groupByFields: null,
     orderByFields: null,
     hasAggregateWithoutGroupBy: false,
+    limit: null,
   });
 });
 
@@ -531,6 +540,7 @@ test("Parse SQL Query with RIGHT JOIN with a WHERE clause filtering the main tab
     groupByFields: null,
     orderByFields: null,
     hasAggregateWithoutGroupBy: false,
+    limit: null,
   });
 });
 
@@ -549,6 +559,7 @@ test("Parse SQL Query with RIGHT JOIN with a WHERE clause filtering the join tab
     groupByFields: null,
     orderByFields: null,
     hasAggregateWithoutGroupBy: false,
+    limit: null,
   });
 });
 
@@ -565,6 +576,7 @@ test("Parse COUNT Aggregate Query", () => {
     joinCondition: null,
     joinTable: null,
     joinType: null,
+    limit: null,
   });
 });
 
@@ -581,6 +593,7 @@ test("Parse SUM Aggregate Query", () => {
     joinCondition: null,
     joinTable: null,
     joinType: null,
+    limit: null,
   });
 });
 
@@ -597,6 +610,7 @@ test("Parse AVG Aggregate Query", () => {
     joinCondition: null,
     joinTable: null,
     joinType: null,
+    limit: null,
   });
 });
 
@@ -613,6 +627,7 @@ test("Parse MIN Aggregate Query", () => {
     joinCondition: null,
     joinTable: null,
     joinType: null,
+    limit: null,
   });
 });
 
@@ -629,6 +644,7 @@ test("Parse MAX Aggregate Query", () => {
     joinTable: null,
     orderByFields: null,
     joinType: null,
+    limit: null,
   });
 });
 
@@ -645,6 +661,7 @@ test("Parse basic GROUP BY query", () => {
     joinCondition: null,
     orderByFields: null,
     hasAggregateWithoutGroupBy: false,
+    limit: null,
   });
 });
 
@@ -661,6 +678,7 @@ test("Parse GROUP BY query with WHERE clause", () => {
     joinCondition: null,
     orderByFields: null,
     hasAggregateWithoutGroupBy: false,
+    limit: null,
   });
 });
 
@@ -678,6 +696,7 @@ test("Parse GROUP BY query with multiple fields", () => {
     joinCondition: null,
     orderByFields: null,
     hasAggregateWithoutGroupBy: false,
+    limit: null,
   });
 });
 
@@ -700,5 +719,6 @@ test("Parse GROUP BY query with JOIN and WHERE clauses", () => {
     },
     hasAggregateWithoutGroupBy: false,
     orderByFields: null,
+    limit: null,
   });
 });

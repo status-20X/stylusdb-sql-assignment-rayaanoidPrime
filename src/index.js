@@ -296,7 +296,9 @@ async function executeSELECTQuery(query) {
       return selectedRow;
     });
   } catch (error) {
-    throw error;
+    // Log error and provide user-friendly message
+    console.error("Error executing query:", error);
+    throw new Error(`Failed to execute query: ${error.message}`);
   }
 }
 
