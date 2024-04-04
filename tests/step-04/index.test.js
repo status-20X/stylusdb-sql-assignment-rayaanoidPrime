@@ -24,6 +24,7 @@ test("Parse SQL Query", () => {
     table: "student",
     whereClauses: [],
     limit: null,
+    isDistinct: false,
   });
 });
 

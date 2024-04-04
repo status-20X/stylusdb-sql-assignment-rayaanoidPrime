@@ -23,6 +23,7 @@ test("Parse SQL Query", () => {
     joinTable: null,
     joinType: null,
     limit: null,
+    isDistinct: false,
   });
 });
 

@@ -24,6 +24,7 @@ test("Parse SQL Query", () => {
     joinTable: null,
     joinType: null,
     limit: null,
+    isDistinct: false,
   });
 });
 
@@ -57,6 +58,7 @@ test("Parse SQL Query with WHERE Clause", () => {
       },
     ],
     limit: null,
+    isDistinct: false,
   });
 });
 
@@ -94,6 +96,7 @@ test("Parse SQL Query with Multiple WHERE Clauses", () => {
       },
     ],
     limit: null,
+    isDistinct: false,
   });
 });
 
@@ -138,6 +141,7 @@ test("Execute SQL Query with unsupported operator", async () => {
       },
     ],
     limit: null,
+    isDistinct: false,
   });
 });
 
@@ -161,5 +165,6 @@ test("Execute SQL Query with incomplete WHERE Clause", async () => {
       },
     ],
     limit: null,
+    isDistinct: false,
   });
 });
