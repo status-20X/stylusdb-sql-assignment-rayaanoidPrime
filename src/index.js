@@ -298,7 +298,7 @@ async function executeSELECTQuery(query) {
   } catch (error) {
     // Log error and provide user-friendly message
     console.error("Error executing query:", error);
-    throw new Error(`Failed to execute query: ${error.message}`);
+    throw new Error(`Error executing query: ${error.message}`);
   }
 }
 

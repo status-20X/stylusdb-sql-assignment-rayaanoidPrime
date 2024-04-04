@@ -67,9 +67,7 @@ function parseQuery(query) {
     const selectRegex = /^SELECT\s(.+?)\sFROM\s(.+)/i;
     const selectMatch = selectPart.match(selectRegex);
     if (!selectMatch) {
-      throw new Error(
-        "Invalid SELECT clause. Ensure it follows 'SELECT field1, field2 FROM table' format."
-      );
+      throw new Error("Invalid SELECT format");
     }
 
     const [, fields, table] = selectMatch;
