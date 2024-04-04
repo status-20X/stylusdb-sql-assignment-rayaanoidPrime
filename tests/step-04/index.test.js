@@ -16,6 +16,7 @@ test("Parse SQL Query", () => {
   expect(parsed).toEqual({
     fields: ["id", "name"],
     groupByFields: null,
+    orderByFields: null,
     hasAggregateWithoutGroupBy: false,
     joinCondition: null,
     joinTable: null,

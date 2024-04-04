@@ -33,7 +33,7 @@ function aggregatedOperations(aggregateFunction, rows) {
   }
 
   const values = rows.map((row) => row[fieldName]);
-  console.log(values);
+
   let result;
   switch (op.toUpperCase()) {
     case "COUNT":
@@ -193,6 +193,7 @@ async function executeSELECTQuery(query) {
       joinCondition,
       groupByFields,
       hasAggregateWithoutGroupBy,
+      orderByFields,
     } = parseQuery(query);
     let data = await readCSV(`${table}.csv`);
 
@@ -250,6 +251,8 @@ async function executeSELECTQuery(query) {
           )
         : data;
 
+    // console.log("AFTER WHERE: ", filteredData);
+
     // logic for group by
     if (groupByFields) {
       filteredData = applyGroupBy(filteredData, groupByFields, fields);
@@ -260,6 +263,20 @@ async function executeSELECTQuery(query) {
       selectedRow[fields[0]] = aggregatedOperations(fields[0], filteredData);
       return [selectedRow];
     }
+
+    // console.log("AFTER GROUP: ", filteredData);
+
+    if (orderByFields) {
+      filteredData.sort((a, b) => {
+        for (let { fieldName, order } of orderByFields) {
+          if (a[fieldName] < b[fieldName]) return order === "ASC" ? -1 : 1;
+          if (a[fieldName] > b[fieldName]) return order === "ASC" ? 1 : -1;
+        }
+        return 0;
+      });
+    }
+
+    // console.log("AFTER ORDER: ", filteredData);
 
     // Filter the fields based on the query fields
     return filteredData.map((row) => {

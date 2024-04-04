@@ -18,6 +18,7 @@ test("Parse SQL Query", () => {
     table: "student",
     whereClauses: [],
     groupByFields: null,
+    orderByFields: null,
     hasAggregateWithoutGroupBy: false,
     joinCondition: null,
     joinTable: null,
@@ -49,6 +50,7 @@ test("Parse SQL Query with WHERE Clause", () => {
       },
     ],
     groupByFields: null,
+    orderByFields: null,
     hasAggregateWithoutGroupBy: false,
     joinCondition: null,
     joinTable: null,
@@ -84,6 +86,7 @@ test("Parse SQL Query with Multiple WHERE Clauses", () => {
       },
     ],
     groupByFields: null,
+    orderByFields: null,
     hasAggregateWithoutGroupBy: false,
     joinCondition: null,
     joinTable: null,
@@ -124,6 +127,7 @@ test("Parse SQL Query with INNER JOIN", async () => {
     joinCondition: { left: "student.id", right: "enrollment.student_id" },
     joinType: "INNER",
     groupByFields: null,
+    orderByFields: null,
     hasAggregateWithoutGroupBy: false,
   });
 });
@@ -140,6 +144,7 @@ test("Parse SQL Query with INNER JOIN and WHERE Clause", async () => {
     joinCondition: { left: "student.id", right: "enrollment.student_id" },
     joinType: "INNER",
     groupByFields: null,
+    orderByFields: null,
     hasAggregateWithoutGroupBy: false,
   });
 });
@@ -254,8 +259,6 @@ test("Execute SQL Query with RIGHT JOIN", async () => {
 test("Execute SQL Query with RIGHT JOIN with a WHERE clause filtering the main table", async () => {
   const query =
     "SELECT student.name, enrollment.course FROM student RIGHT JOIN enrollment ON student.id=enrollment.student_id WHERE student.age < 25";
-
-  console.log(parseQuery(query));
 
   const result = await executeSELECTQuery(query);
   expect(result).toEqual(
