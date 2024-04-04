@@ -1,6 +1,6 @@
 // src/index.js
 
-const { parseQuery } = require("./queryParser");
+const { parseQuery, removeQuotes } = require("./queryParser");
 const readCSV = require("./csvReader");
 
 function evaluateCondition(row, clause) {
@@ -19,6 +19,9 @@ function evaluateCondition(row, clause) {
       return row[field] >= newValue;
     case "<=":
       return row[field] <= newValue;
+    case "LIKE":
+      const regexPattern = "^" + clause.value.replace(/%/g, ".*") + "$";
+      return new RegExp(regexPattern, "i").test(row[clause.field]);
     default:
       throw new Error(`Unsupported operator: ${operator}`);
   }
@@ -312,17 +315,6 @@ async function executeSELECTQuery(query) {
     console.error("Error executing query:", error);
     throw new Error(`Error executing query: ${error.message}`);
   }
-}
-
-function removeQuotes(value) {
-  if (
-    typeof value === "string" &&
-    (value.startsWith(`'`) || value.startsWith(`"`)) &&
-    (value.endsWith(`'`) || value.endsWith(`"`))
-  ) {
-    return value.slice(1, -1); // Remove quotes
-  }
-  return value;
 }
 
 module.exports = executeSELECTQuery;

@@ -101,6 +101,7 @@ function parseQuery(query) {
       isDistinct,
     };
   } catch (error) {
+    // console.error(error);
     throw new Error(`Query parsing error: ${error.message}`);
   }
 }
@@ -110,6 +111,17 @@ function parseWhereClause(whereString) {
     const conditionRegex = /(.*?)(=|!=|>|<|>=|<=)(.*)/;
     return whereString.split(/ AND | OR /i).map((conditionString) => {
       const match = conditionString.match(conditionRegex);
+
+      if (conditionString.includes(" LIKE ")) {
+        const [field, pattern] = conditionString.split(/\sLIKE\s/i);
+        console.log(pattern);
+        return {
+          field: field.trim(),
+          operator: "LIKE",
+          value: removeQuotes(pattern.trim()),
+        };
+      }
+
       if (match) {
         const [, field, operator, value] = match;
 
@@ -151,4 +163,15 @@ function parseJoinClause(query) {
   };
 }
 
-module.exports = { parseQuery, parseJoinClause };
+function removeQuotes(value) {
+  if (
+    typeof value === "string" &&
+    (value.startsWith(`'`) || value.startsWith(`"`)) &&
+    (value.endsWith(`'`) || value.endsWith(`"`))
+  ) {
+    return value.slice(1, -1); // Remove quotes
+  }
+  return value;
+}
+
+module.exports = { parseQuery, parseJoinClause, removeQuotes };
