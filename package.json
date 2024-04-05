@@ -33,6 +33,7 @@
     "test:queryExecutor": "jest --testPathPattern=./tests/queryExecutor.test.js",
     "test:group": "jest --testPathPattern=./tests/groupTest.test.js",
     "test:insert": "jest --testPathPattern=./tests/insertExecutor.test.js",
+    "test:cli": "jest --testPathPattern=./tests/cli.test.js",
     "test-verbose": "jest --verbose",
     "server": "node ./src/server.js"
   },
