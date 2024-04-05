@@ -1,24 +1,41 @@
-<h1 align="center">CsvDB SQL</h1>
+<h1 align="center">StylusDB SQL</h1>
 <p align="center">
-A SQL database query engine for csv files written in JavaScript.
+A SQL database engine written in JavaScript.
 
 [![GitHub Repo](https://img.shields.io/badge/GitHub-Repo-green.svg)](https://github.com/ChakshuGautam/stylusdb-sql)
 [![GitHub Repo](https://img.shields.io/github/stars/ChakshuGautam/stylusdb-sql?style=social)](https://github.com/ChakshuGautam/stylusdb-sql)
 
 </p>
 
-This is an implementation of the StylusDB SQL engine written in Javascript. It is a lightweight query engine for querying csv files. You can refer to a more complete implementation @ [ChakshuGautam/stylusdb-sql](https://github.com/ChakshuGautam/stylusdb-sql).
+This is the base repository for cohort members to follow the tutorial and send in their own StylusDB SQL implementations. You can refer to a more complete implementation @ [ChakshuGautam/stylusdb-sql](https://github.com/ChakshuGautam/stylusdb-sql).
 
 > **Disclaimer**:
 > This database is for educational purposes only. It is not intended for production use. It is written ground up in JavaScript and is a great way to learn how databases work. You can find the tutorial in the [docs](./docs) directory.
 
-## Installation
+## Usage
 
-You can install 'csvdb-sql' globally using npm:
+SELECT queries
 
 ```bash
-npm i -g npm
-npm install -g csvdb-sql
+const { executeSELECTQuery } = require('csvdb-sql');
+const query = 'SELECT id, name FROM student WHERE age < 25';
+const result = await executeSELECTQuery(query);
+```
+
+INSERT queries
+
+```bash
+const { executeINSERTquery } = require('csvdb-sql');
+const insertQuery = "INSERT INTO grades (student_id, course, grade) VALUES ('4', 'Physics', 'A')";
+await executeINSERTQuery(insertQuery);
+```
+
+DELETE queries
+
+```bash
+const {executeDELETEquery} = require('csvdb-sql');
+const deleteQuery = "DELETE FROM courses WHERE course_id = '2'";
+await executeDELETEQuery(deleteQuery);
 ```
 
 # Development
