@@ -12,17 +12,19 @@ test("DISTINCT with Multiple Columns via CLI", (done) => {
 
   cliProcess.on("exit", () => {
     // Define a regex pattern to extract the JSON result
-    console.log(outputData);
+
     const cleanedOutput = outputData.replace(/\s+/g, " ");
 
     const resultRegex = /Result: (\[.+\])/s;
     const match = cleanedOutput.match(resultRegex);
+    console.log(match);
     // Fix JSON outputput
     match[1] = match[1].replace(/'/g, '"').replace(/(\w+):/g, '"$1":');
 
     if (match && match[1]) {
       // Parse the captured JSON string
-      const results = JSON.parse(match[1]);
+      console.log(match[1]);
+      const results = JSON.parse(match[1].trim());
 
       // Validation logic
       expect(results).toEqual([
@@ -32,7 +34,6 @@ test("DISTINCT with Multiple Columns via CLI", (done) => {
         { student_id: "3", course: "Mathematics" },
         { student_id: "5", course: "Biology" },
       ]);
-      console.log("Test passed successfully");
     } else {
       throw new Error("Failed to parse CLI output");
     }

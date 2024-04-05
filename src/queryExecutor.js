@@ -261,8 +261,6 @@ async function executeSELECTQuery(query) {
           )
         : data;
 
-    // console.log("AFTER WHERE: ", filteredData);
-
     // logic for group by
     if (groupByFields) {
       filteredData = applyGroupBy(filteredData, groupByFields, fields);
@@ -335,7 +333,6 @@ async function executeINSERTQuery(query) {
     existingData = await readCSV(`${table}.csv`);
     orderedFields =
       existingData.length >= 1 ? Object.keys(existingData[0]) : columns;
-    console.log(existingData);
   }
 
   const data = [
@@ -356,7 +353,6 @@ async function executeDELETEQuery(query) {
   const { table, whereClauses } = parseDeleteQuery(query);
 
   let data = await readCSV(`${table}.csv`);
-  console.log(data);
 
   const filteredData =
     whereClauses.length > 0
