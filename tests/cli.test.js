@@ -17,13 +17,13 @@ test("DISTINCT with Multiple Columns via CLI", (done) => {
 
     const resultRegex = /Result: (\[.+\])/s;
     const match = cleanedOutput.match(resultRegex);
-    console.log(match);
+
     // Fix JSON outputput
     match[1] = match[1].replace(/'/g, '"').replace(/(\w+):/g, '"$1":');
 
     if (match && match[1]) {
       // Parse the captured JSON string
-      console.log(match[1]);
+
       const results = JSON.parse(match[1].trim());
 
       // Validation logic
