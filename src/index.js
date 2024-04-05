@@ -1,7 +1,11 @@
 // src/index.js
 
-const { parseQuery, removeQuotes } = require("./queryParser");
-const readCSV = require("./csvReader");
+const {
+  parseSelectQuery,
+  removeQuotes,
+  parseINSERTQuery,
+} = require("./queryParser");
+const { readCSV, writeCSV } = require("./csvReader");
 
 function evaluateCondition(row, clause) {
   const { field, operator, value } = clause;
@@ -199,7 +203,7 @@ async function executeSELECTQuery(query) {
       orderByFields,
       limit,
       isDistinct,
-    } = parseQuery(query);
+    } = parseSelectQuery(query);
     let data = await readCSV(`${table}.csv`);
 
     // Logic for applying JOINs
@@ -317,4 +321,21 @@ async function executeSELECTQuery(query) {
   }
 }
 
-module.exports = executeSELECTQuery;
+async function executeINSERTQuery(query) {
+  const { type, table, columns, values } = parseINSERTQuery(query);
+
+  if (type !== "INSERT") {
+    throw new Error("Invalid INSERT format");
+  }
+
+  const data = [
+    columns.reduce((acc, field, index) => {
+      acc[field] = values[index];
+      return acc;
+    }, {}),
+  ];
+
+  await writeCSV(`${table}.csv`, data);
+}
+
+module.exports = { executeSELECTQuery, executeINSERTQuery };

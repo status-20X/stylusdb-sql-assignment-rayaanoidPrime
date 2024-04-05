@@ -1,8 +1,26 @@
-// src/queryParser.js
+function parseINSERTQuery(query) {
+  query = query.trim();
 
-// src/queryParser.js
+  //insert regex
+  const insertPattern =
+    /^INSERT INTO\s+(\w+)\s+\(([^)]+)\)\s+VALUES\s+\(([^)]+)\)/i;
 
-function parseQuery(query) {
+  const insertMatch = query.match(insertPattern);
+
+  if (!insertMatch) {
+    throw new Error("Invalid INSERT format");
+  }
+
+  const [, table, fields, values] = insertMatch;
+  return {
+    type: "INSERT",
+    table: table.trim(),
+    columns: fields.split(",").map((field) => removeQuotes(field.trim())),
+    values: values.split(",").map((val) => removeQuotes(val.trim())),
+  };
+}
+
+function parseSelectQuery(query) {
   try {
     // First, let's trim the query to remove any leading/trailing whitespaces
     query = query.trim();
@@ -174,4 +192,9 @@ function removeQuotes(value) {
   return value;
 }
 
-module.exports = { parseQuery, parseJoinClause, removeQuotes };
+module.exports = {
+  parseSelectQuery,
+  parseJoinClause,
+  removeQuotes,
+  parseINSERTQuery,
+};

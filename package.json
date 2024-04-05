@@ -32,6 +32,7 @@
     "test:csvReader": "jest --testPathPattern=./tests/csvReader.test.js",
     "test:queryExecutor": "jest --testPathPattern=./tests/queryExecutor.test.js",
     "test:group": "jest --testPathPattern=./tests/groupTest.test.js",
+    "test:insert": "jest --testPathPattern=./tests/insertExecutor.test.js",
     "test-verbose": "jest --verbose",
     "server": "node ./src/server.js"
   },
