@@ -1,3 +1,32 @@
+function parseDeleteQuery(query) {
+  query = query.trim();
+
+  // Where Clause logic
+  const whereSplit = query.split(/\sWHERE\s/i);
+  query = whereSplit[0]; // Everything before WHERE clause
+  const whereClause = whereSplit.length > 1 ? whereSplit[1].trim() : null;
+  let whereClauses = [];
+  if (whereClause) {
+    whereClauses = parseWhereClause(whereClause);
+  }
+
+  //insert regex
+  const deleteRegex = /^DELETE FROM\s+(\w+)/i;
+  const deleteMatch = query.match(deleteRegex);
+
+  if (!deleteMatch) {
+    throw new Error("Invalid DELETE format");
+  }
+
+  const [, table] = deleteMatch;
+
+  return {
+    type: "DELETE",
+    table: table.trim(),
+    whereClauses: whereClauses,
+  };
+}
+
 function parseINSERTQuery(query) {
   query = query.trim();
 
@@ -132,7 +161,6 @@ function parseWhereClause(whereString) {
 
       if (conditionString.includes(" LIKE ")) {
         const [field, pattern] = conditionString.split(/\sLIKE\s/i);
-        console.log(pattern);
         return {
           field: field.trim(),
           operator: "LIKE",
@@ -197,4 +225,5 @@ module.exports = {
   parseJoinClause,
   removeQuotes,
   parseINSERTQuery,
+  parseDeleteQuery,
 };

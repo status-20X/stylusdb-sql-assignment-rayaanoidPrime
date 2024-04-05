@@ -1,9 +1,10 @@
 // src/index.js
-
+const fs = require("fs");
 const {
   parseSelectQuery,
   removeQuotes,
   parseINSERTQuery,
+  parseDeleteQuery,
 } = require("./queryParser");
 const { readCSV, writeCSV } = require("./csvReader");
 
@@ -315,8 +316,6 @@ async function executeSELECTQuery(query) {
       return selectedRow;
     });
   } catch (error) {
-    // Log error and provide user-friendly message
-    console.error("Error executing query:", error);
     throw new Error(`Error executing query: ${error.message}`);
   }
 }
@@ -328,14 +327,48 @@ async function executeINSERTQuery(query) {
     throw new Error("Invalid INSERT format");
   }
 
+  let orderedFields = columns;
+  let existingData = [];
+
+  if (fs.existsSync(`${table}.csv`)) {
+    // Read existing data from CSV file
+    existingData = await readCSV(`${table}.csv`);
+    orderedFields =
+      existingData.length >= 1 ? Object.keys(existingData[0]) : columns;
+    console.log(existingData);
+  }
+
   const data = [
-    columns.reduce((acc, field, index) => {
+    orderedFields.reduce((acc, field, index) => {
       acc[field] = values[index];
       return acc;
     }, {}),
   ];
 
-  await writeCSV(`${table}.csv`, data);
+  const newData = existingData.concat(data);
+
+  await writeCSV(`${table}.csv`, newData);
 }
 
-module.exports = { executeSELECTQuery, executeINSERTQuery };
+// src/queryExecutor.js
+
+async function executeDELETEQuery(query) {
+  const { table, whereClauses } = parseDeleteQuery(query);
+
+  let data = await readCSV(`${table}.csv`);
+  console.log(data);
+
+  const filteredData =
+    whereClauses.length > 0
+      ? data.filter((row) =>
+          whereClauses.every((clause) => !evaluateCondition(row, clause))
+        )
+      : [];
+
+  // Save the updated data back to the CSV file
+  await writeCSV(`${table}.csv`, filteredData);
+
+  return { message: "Rows deleted successfully." };
+}
+
+module.exports = { executeSELECTQuery, executeINSERTQuery, executeDELETEQuery };
